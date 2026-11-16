@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verónica Sanz · Theoretical physics and AI</title>
+<meta name="description" content="Verónica Sanz, Full Professor of Theoretical Physics at the Universitat de València and IFIC (UV–CSIC). Research on physics beyond the Standard Model, machine learning for physical data, and interdisciplinary AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F7F9; --surface:#FFFFFF; --ink:#13213A; --muted:#55607A; --rule:#D8DDE6;
+  --accent:#2747A8; --signal:#C9861E; --signal-soft:rgba(201,134,30,.18);
+  --serif:"Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans:"Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0A1424; --surface:#101C31; --ink:#E6EBF3; --muted:#9AA6BC; --rule:#22314C;
+    --accent:#8FA9F2; --signal:#E3A84A; --signal-soft:rgba(227,168,74,.2);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0A1424; --surface:#101C31; --ink:#E6EBF3; --muted:#9AA6BC; --rule:#22314C;
+  --accent:#8FA9F2; --signal:#E3A84A; --signal-soft:rgba(227,168,74,.2);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4.5rem)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:1.125rem;line-height:1.62;font-optical-sizing:auto;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+img,canvas{max-width:100%}
+.wrap{max-width:72rem;margin:0 auto;padding:0 1.5rem}
+
+/* Header */
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--paper);border-bottom:1px solid var(--rule)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:3.75rem}
+.mark{font-family:var(--serif);font-size:1.15rem;font-weight:500;color:var(--ink);text-decoration:none;letter-spacing:-.005em}
+nav.primary{display:flex;gap:1.4rem;font-family:var(--sans);font-size:.92rem}
+nav.primary a{color:var(--muted);text-decoration:none}
+nav.primary a:hover{color:var(--ink)}
+@media (max-width:760px){nav.primary{display:none}}
+
+/* Hero */
+.hero{padding:4.5rem 0 3.5rem;border-bottom:1px solid var(--rule)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:3rem;align-items:center}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:2rem}.hero{padding-top:3rem}}
+h1{font-size:clamp(3rem,7.2vw,5.6rem);font-weight:380;line-height:.98;letter-spacing:-.025em;margin:0 0 1.4rem;font-variation-settings:"opsz" 72}
+.role{font-family:var(--sans);font-size:1rem;color:var(--muted);margin:0 0 1.6rem;max-width:34rem;line-height:1.5}
+.lede{font-size:clamp(1.25rem,2vw,1.45rem);line-height:1.45;margin:0 0 2rem;max-width:34rem;font-weight:360}
+.profiles{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;font-family:var(--sans);font-size:.95rem;margin:0;padding:0;list-style:none}
+.profiles a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:2px}
+.profiles a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Oscillator figure */
+figure.sync{margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:1.25rem 1.25rem 1rem}
+figure.sync canvas{display:block;width:100%;aspect-ratio:1/1;height:auto}
+.sync-controls{display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:center;font-family:var(--sans);font-size:.88rem;color:var(--muted);margin-top:.6rem}
+.sync-controls output{font-variant-numeric:tabular-nums;color:var(--ink);min-width:4.5rem;text-align:right}
+input[type=range]{width:100%;accent-color:var(--signal)}
+figcaption{font-size:.95rem;line-height:1.5;color:var(--muted);margin-top:.9rem}
+
+/* Sections */
+section.block{padding:4.5rem 0;border-bottom:1px solid var(--rule)}
+section.block .wrap{display:grid;grid-template-columns:14rem minmax(0,1fr);gap:2.5rem}
+@media (max-width:900px){section.block .wrap{grid-template-columns:1fr;gap:1rem}section.block{padding:3.25rem 0}}
+h2{font-size:1.65rem;font-weight:450;line-height:1.2;letter-spacing:-.01em;margin:0;position:sticky;top:calc(env(safe-area-inset-top,0px) + 5.5rem);align-self:start}
+@media (max-width:900px){h2{position:static}}
+h3{font-size:1.3rem;font-weight:500;line-height:1.3;margin:0 0 .6rem}
+.body{max-width:44rem}
+.body p{margin:0 0 1.1rem}
+.body > :last-child{margin-bottom:0}
+
+/* Research strands */
+.strand{padding:0 0 2.2rem;margin:0 0 2.2rem;border-bottom:1px solid var(--rule)}
+.strand:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.strand .topics{font-family:var(--sans);font-size:.9rem;color:var(--muted);line-height:1.55;margin:.8rem 0 0}
+
+/* Agenda callout */
+.agenda{border-left:3px solid var(--signal);padding:.2rem 0 .2rem 1.25rem;margin:1.6rem 0 0}
+.agenda p{margin:0}
+
+/* Publications */
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.75rem;font-family:var(--sans)}
+.filters button{font:inherit;font-size:.9rem;padding:.42rem .85rem;border:1px solid var(--rule);background:transparent;color:var(--ink);border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.filters button:hover{border-color:var(--ink)}
+ol.pubs{list-style:none;margin:0;padding:0}
+ol.pubs li{display:grid;grid-template-columns:3.4rem minmax(0,1fr);gap:1rem;padding:.95rem 0;border-top:1px solid var(--rule)}
+ol.pubs li:first-child{border-top:0;padding-top:0}
+ol.pubs li[hidden]{display:none}
+.yr{font-family:var(--sans);font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:.15rem}
+.pt{font-weight:500;display:block;line-height:1.38}
+.pa{font-size:.98rem;color:var(--muted);display:block;margin-top:.2rem;line-height:1.45}
+.pa i{font-style:italic}
+.more{font-family:var(--sans);font-size:.95rem;margin-top:1.6rem}
+
+/* Lists in two columns */
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 2.5rem}
+@media (max-width:640px){.cols{grid-template-columns:1fr}}
+ul.plain{list-style:none;margin:0;padding:0}
+ul.plain li{padding:.55rem 0;border-top:1px solid var(--rule);line-height:1.45}
+ul.plain li:first-child{border-top:0;padding-top:0}
+.when{display:block;font-family:var(--sans);font-size:.85rem;color:var(--muted);margin-top:.15rem}
+h3.sub{font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--muted);margin:0 0 .8rem}
+
+/* Talks timeline */
+ol.talks{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+ol.talks li{position:relative;padding:0 0 1.1rem 1.4rem;line-height:1.45}
+ol.talks li::before{content:"";position:absolute;left:-4px;top:.55rem;width:7px;height:7px;border-radius:50%;background:var(--paper);border:1px solid var(--muted)}
+ol.talks li.next::before{background:var(--signal);border-color:var(--signal)}
+
+/* Contact */
+.contact-line{font-size:clamp(1.4rem,3vw,2rem);font-weight:400;line-height:1.25;margin:0 0 1rem;letter-spacing:-.01em}
+.contact-line a{color:var(--ink)}
+footer{padding:2rem 0 3rem;font-family:var(--sans);font-size:.85rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="mark" href="#top">Verónica Sanz</a>
+    <nav class="primary" aria-label="Sections">
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#talks">Talks</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Verónica Sanz</h1>
+        <p class="role">Full Professor of Theoretical Physics, Universitat de València. Researcher at the Instituto de Física Corpuscular (IFIC, UV–CSIC).</p>
+        <p class="lede">I work where fundamental physics meets machine learning: building effective theories for what may lie beyond the Standard Model, and asking what learning machines can tell us about the structure hidden in data, in physics and well beyond it.</p>
+        <ul class="profiles" aria-label="Profiles">
+          <li><a href="https://scholar.google.com/citations?user=n1PjQoYAAAAJ&amp;hl=en">Google Scholar</a></li>
+          <li><a href="https://orcid.org/0000-0001-8864-2507">ORCID</a></li>
+          <li><a id="gh" href="https://github.com/Vsanz">GitHub</a></li>
+          <li><a id="hf" href="https://huggingface.co/Vsanz">Hugging Face</a></li>
+          <li><a href="https://inferalabs.es">INFERA Labs</a></li>
+          <li><a href="mailto:veronica.sanz@uv.es">veronica.sanz@uv.es</a></li>
+        </ul>
+      </div>
+
+      <figure class="sync" aria-labelledby="sync-cap">
+        <canvas id="osc" width="520" height="520" role="img" aria-label="Animated ring of coupled oscillators. As the coupling increases they fall into a common rhythm, shown by an arrow whose length is the order parameter."></canvas>
+        <div class="sync-controls">
+          <label for="k">Coupling</label>
+          <input id="k" type="range" min="0" max="4" step="0.05" value="0.3">
+          <output id="r" for="k">r = 0.00</output>
+        </div>
+        <figcaption id="sync-cap">Forty-eight coupled oscillators, each with its own natural frequency. Raise the coupling and a collective rhythm emerges; the arrow’s length is the order parameter <i>r</i>. Part of my current work asks when a learning machine can discover variables like <i>r</i> on its own.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="wrap">
+      <h2>About</h2>
+      <div class="body">
+        <p>I am a theoretical physicist working on particle physics, effective field theories and the statistical interpretation of collider data, and on the use of machine learning to understand physical systems. My research connects microscopic dynamics and symmetries with observables and effective descriptions, and increasingly asks the same questions of complex systems outside physics.</p>
+        <p>After a PhD at the Universitat de València (2002), I held research positions at MIT, Harvard, Durham and Boston University, a Juan de la Cierva fellowship in Granada, and faculty positions at York University in Toronto and the University of Sussex, where I rose from Lecturer to Full Professor and co-founded the Data Intensive Science Centre. I was also an Associate at CERN in 2012 and at the Alan Turing Institute in London in 2019. I returned to Valencia in 2019 as a Beatriz Galindo Distinguished Senior Researcher and was appointed Full Professor in 2023.</p>
+        <p>I have published around 200 papers, cited more than 17,000 times (h-index 55, Google Scholar), and supervised or co-supervised twelve doctoral theses. My former students now work as university faculty, postdoctoral researchers and industrial R&amp;D specialists.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="research">
+    <div class="wrap">
+      <h2>Research</h2>
+      <div class="body">
+        <article class="strand">
+          <h3>Physics beyond the Standard Model</h3>
+          <p>How do we look for new physics when no new particle shows up directly? Much of my work uses effective field theories to turn precision measurements at the LHC into model-independent statements about heavier physics, and maps those statements back to concrete models. This includes global fits to Higgs, top, diboson and electroweak data, the phenomenology of axion-like particles, and reinterpreting published LHC measurements to test new theories.</p>
+          <p class="topics">SMEFT and HEFT global analyses, axion-like particles, composite Higgs and extra dimensions, dark matter and its mediators, gravitational waves from dark sectors, cosmology and inflation.</p>
+        </article>
+
+        <article class="strand">
+          <h3>Learning from physical data</h3>
+          <p>One line of my research studies how neural networks learn physical representations: whether they find the symmetries of a dataset, what structure their latent spaces encode, and how their outputs can be turned into statements with proper statistical meaning. In collider physics this has led to unbinned multivariate observables for EFT fits, anomaly detection for unexpected signals, and symbolic regression that recovers interpretable formulas from data.</p>
+          <p class="topics">Symmetry discovery, interpretable machine learning, symbolic regression, anomaly detection, generative models, from model outputs to statistical criteria.</p>
+          <div class="agenda">
+            <p>My current agenda brings both programmes together around emergence. Starting with coupled oscillators, where the order parameter is known, and moving towards reaction–diffusion systems, the aim is to understand when effective descriptions can be learned from data, how well they generalise, and where they break down. Related work treats axion misalignment as a synchronisation phenomenon.</p>
+          </div>
+        </article>
+
+        <article class="strand">
+          <h3>Across disciplines</h3>
+          <p>The methods developed for particle physics, especially for modelling uncertainty and spotting rare events, carry over to other fields. With ecologists, engineers, clinicians and social scientists, I have worked on predicting species coexistence in plant communities, forecasting traffic and air pollution in Valencia, predicting geomagnetic storms, improving Compton-camera medical imaging, and analysing political discourse.</p>
+          <p>Some of this work now reaches society through technology transfer. I drove the licensing agreement that created <a href="https://inferalabs.es">INFERA Labs</a>, the first AI spin-off of the Universitat de València, where I am co-founder and Chief Scientific Advisor, and I lead STEP, a project on AI for quantum instrumentation and magnetometry.</p>
+          <p class="topics">Ecology and ecological restoration, urban mobility and air quality, space weather, medical imaging, seismology, computational social science, generative AI and music.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="publications">
+    <div class="wrap">
+      <h2>Selected publications</h2>
+      <div class="body">
+        <div class="filters" role="group" aria-label="Filter publications by theme">
+          <button type="button" data-f="all" aria-pressed="true">All</button>
+          <button type="button" data-f="physics" aria-pressed="false">Particle physics</button>
+          <button type="button" data-f="ai" aria-pressed="false">AI and learning</button>
+          <button type="button" data-f="inter" aria-pressed="false">Across disciplines</button>
+        </div>
+        <ol class="pubs">
+          <li data-t="ai"><span class="yr">2026</span><span><span class="pt">Angular coefficients from interpretable machine learning with symbolic regression</span><span class="pa">J. Bendavid, D. Conde, M. Morales-Alvarado, V. Sanz, M. Ubiali. <i>JHEP</i></span></span></li>
+          <li data-t="ai"><span class="yr">2026</span><span><span class="pt">Learning symmetries in datasets</span><span class="pa">V. Sanz. <i>Applied Sciences</i></span></span></li>
+          <li data-t="physics"><span class="yr">2026</span><span><span class="pt">Probing the coupling of axions to tops and gluons with LHC measurements</span><span class="pa">J. Butterworth, M. Cullingworth, J. Egan, F. Esser, V. Sanz, M. Ubiali</span></span></li>
+          <li data-t="physics"><span class="yr">2025</span><span><span class="pt">Probing the flavour-blind SMEFT: EFT validity and the interplay of energy scales</span><span class="pa">L. Mantani, V. Sanz. <i>JHEP</i> 06 (2025) 147</span></span></li>
+          <li data-t="inter"><span class="yr">2025</span><span><span class="pt">Deep learning for urban air quality: a traffic-based prediction and alert system for Valencia</span><span class="pa">M. G. Folgado, V. Sanz, J. Hirn, E. Lorenzo-Sáez, J. Urchueguía. <i>Neural Computing and Applications</i></span></span></li>
+          <li data-t="inter"><span class="yr">2025</span><span><span class="pt">Improving Compton camera imaging of multi-energy radioactive sources by using machine learning algorithms for event selection</span><span class="pa">J. Pérez-Curbelo, J. Roser, E. Muñoz, L. Barrientos, V. Sanz, G. Llosá. <i>Radiation Physics and Chemistry</i> 226 (2025) 112166</span></span></li>
+          <li data-t="inter ai"><span class="yr">2024</span><span><span class="pt">Exploring how a generative AI interprets music</span><span class="pa">G. Barenboim, L. Del Debbio, J. Hirn, V. Sanz. <i>Neural Computing and Applications</i></span></span></li>
+          <li data-t="inter"><span class="yr">2024</span><span><span class="pt">Transfer learning of species co-occurrence patterns between plant communities</span><span class="pa">J. Hirn, V. Sanz, J. E. García, M. Goberna, A. Montesinos-Navarro, J. A. Navarro-Cano, R. Sánchez-Martín, A. Valiente-Banuet, M. Verdú. <i>Ecological Informatics</i> 83 (2024) 102826</span></span></li>
+          <li data-t="physics"><span class="yr">2024</span><span><span class="pt">Di-Higgs production via axion-like particles</span><span class="pa">F. Esser, M. Madigan, A. Salas-Bernárdez, V. Sanz, M. Ubiali. <i>JHEP</i> 10 (2024) 164</span></span></li>
+          <li data-t="ai physics"><span class="yr">2023</span><span><span class="pt">Unbinned multivariate observables for global SMEFT analyses from machine learning</span><span class="pa">R. Gomez Ambrosio, J. ter Hoeve, M. Madigan, J. Rojo, V. Sanz. <i>JHEP</i> 03 (2023) 033</span></span></li>
+          <li data-t="inter"><span class="yr">2023</span><span><span class="pt">Forecasting geomagnetic storm disturbances and their uncertainties using deep learning</span><span class="pa">D. Conde et al. <i>Space Weather</i> 21 (2023) e2023SW003474</span></span></li>
+          <li data-t="inter"><span class="yr">2022</span><span><span class="pt">A deep generative artificial intelligence system to predict species coexistence patterns</span><span class="pa">J. Hirn et al. <i>Methods in Ecology and Evolution</i> 13 (2022) 1052</span></span></li>
+          <li data-t="ai"><span class="yr">2022</span><span><span class="pt">A simple guide from machine learning outputs to statistical criteria</span><span class="pa">C. K. Khosa, V. Sanz, M. Soughton. <i>SciPost Physics Core</i> 5 (2022) 050</span></span></li>
+          <li data-t="ai"><span class="yr">2021</span><span><span class="pt">Symmetry meets AI</span><span class="pa">G. Barenboim, J. Hirn, V. Sanz. <i>SciPost Physics</i> 11 (2021) 014</span></span></li>
+          <li data-t="ai physics"><span class="yr">2021</span><span><span class="pt">The LHC Olympics 2020: a community challenge for anomaly detection in high energy physics</span><span class="pa">G. Kasieczka et al. <i>Reports on Progress in Physics</i> 84 (2021) 124201</span></span></li>
+          <li data-t="physics"><span class="yr">2021</span><span><span class="pt">Top, Higgs, diboson and electroweak fit to the Standard Model effective field theory</span><span class="pa">J. Ellis, M. Madigan, K. Mimasu, V. Sanz, T. You. <i>JHEP</i> 04 (2021) 279</span></span></li>
+          <li data-t="physics"><span class="yr">2020</span><span><span class="pt">Nonresonant searches for axion-like particles at the LHC</span><span class="pa">M. B. Gavela, J. M. No, V. Sanz, J. F. de Trocóniz. <i>Physical Review Letters</i> 124 (2020) 051802</span></span></li>
+          <li data-t="physics"><span class="yr">2017</span><span><span class="pt">ALPs effective field theory and collider signatures</span><span class="pa">I. Brivio, M. B. Gavela, L. Merlo, K. Mimasu, J. M. No, R. del Rey, V. Sanz. <i>Eur. Phys. J. C</i> 77 (2017) 572</span></span></li>
+          <li data-t="physics"><span class="yr">2015</span><span><span class="pt">The effective Standard Model after LHC Run I</span><span class="pa">J. Ellis, V. Sanz, T. You. <i>JHEP</i> 03 (2015) 157</span></span></li>
+          <li data-t="physics"><span class="yr">2006</span><span><span class="pt">A negative S parameter from holographic technicolor</span><span class="pa">J. Hirn, V. Sanz. <i>Physical Review Letters</i> 97 (2006) 121803</span></span></li>
+          <li data-t="physics"><span class="yr">2002</span><span><span class="pt">Entropy–area relations in field theory</span><span class="pa">L. Randall, V. Sanz, M. D. Schwartz. <i>JHEP</i> 06 (2002) 008</span></span></li>
+        </ol>
+        <p class="more">The full list is on <a href="https://scholar.google.com/citations?user=n1PjQoYAAAAJ&amp;hl=en">Google Scholar</a> and <a href="https://orcid.org/0000-0001-8864-2507">ORCID</a>. Preprints are on arXiv, and code and data are shared openly on <a href="https://github.com/Vsanz">GitHub</a>, <a href="https://huggingface.co/Vsanz">Hugging Face</a> and Zenodo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="leadership">
+    <div class="wrap">
+      <h2>Leadership and service</h2>
+      <div class="body cols">
+        <div>
+          <h3 class="sub">Programmes and projects</h3>
+          <ul class="plain">
+            <li>Principal investigator, IFIC Severo Ochoa Programme of Excellence, focused on quantum technologies, medical physics and advanced instrumentation, with AI as a unifying tool<span class="when">2024–2028</span></li>
+            <li>Principal investigator, STEP: AI for quantum technologies, Generalitat Valenciana<span class="when">2026–2028</span></li>
+            <li>Co-founder and Chief Scientific Advisor, INFERA Labs, spin-off of the Universitat de València<span class="when">Since 2026</span></li>
+            <li>Principal investigator, Ecological Restoration and AI, with the Centro de Investigaciones sobre Desertificación<span class="when">2022–2024</span></li>
+            <li>Co-principal investigator, PROMETEO: non-perturbative phenomena in fundamental physics<span class="when">2021–2024</span></li>
+            <li>Co-founder and co-director, Data Intensive Science Centre (DISCUS), University of Sussex<span class="when">2017–2019</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="sub">Committees and editorial work</h3>
+          <ul class="plain">
+            <li>Panel member, ERC Synergy Grants</li>
+            <li>LHC Higgs Theory Advisory Committee</li>
+            <li>Founding member, EuCAIF, the European coalition for AI in fundamental physics</li>
+            <li>Steering Committee, LHC Higgs Working Group<span class="when">2019–2022</span></li>
+            <li>Scientific Advisory Committee, ApPEC<span class="when">Since 2019</span></li>
+            <li>UKRI Future Leaders Fellowships panel<span class="when">2018–2023</span></li>
+            <li>Editorial College, SciPost<span class="when">Since 2017</span></li>
+            <li>Chair, Particle Physics Division, Canadian Association of Physicists<span class="when">2012–2013</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="teaching">
+    <div class="wrap">
+      <h2>Teaching and supervision</h2>
+      <div class="body">
+        <p>I teach quantum physics and elementary particle physics at the Universitat de València, at undergraduate and master’s level, and previously taught across the Physics and Astronomy programmes at Sussex and York. I have lectured at doctoral schools including TASI, the CERN–JINR European School, DESY, the Perimeter Institute and, in 2025, graduate lectures on machine learning for physics at the Interdisciplinary Center for Scientific Computing in Heidelberg.</p>
+        <p>At the Universitat de València I also train fellow lecturers in generative AI and AI agents for teaching and research. I have supervised or co-supervised twelve PhD theses and more than thirty master’s and undergraduate projects, on topics from collider phenomenology and gravity to machine learning for dark-matter detection.</p>
+        <p>In outreach, I co-wrote the illustrated children’s book <i>Discovering Energy</i>, published in English, Spanish and Catalan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="talks">
+    <div class="wrap">
+      <h2>Selected talks</h2>
+      <div class="body">
+        <ol class="talks">
+          <li class="next">Lectures on chiral effective field theories, MITP Summer School, Mainz<span class="when">July 2027</span></li>
+          <li class="next">Machine learning lecture series, NNPDF School, Tremezzo<span class="when">June 2027</span></li>
+          <li class="next">Colloquium, Durham Centre for Particle Theory<span class="when">March 2027</span></li>
+          <li>Higgs Hunting 2026, Paris: “After the Higgs: looking for the Universe behind the particle”<span class="when">September 2026</span></li>
+          <li>IAXO Collaboration Meeting, Hamburg: “Axion misalignment as a synchronization phenomenon”<span class="when">March 2026</span></li>
+          <li>HEFT 2024, Bologna: “Global analyses and ML in EFT searches”<span class="when">June 2024</span></li>
+          <li>ICHEP 2022, Bologna, plenary: “New physics: where do we stand?”<span class="when">July 2022</span></li>
+          <li>EPS-HEP 2021, review talk: “Higgs theory”<span class="when">July 2021</span></li>
+          <li>LHCP 2021, plenary: “New ideas for BSM”<span class="when">June 2021</span></li>
+          <li>LHCP 2018, Bologna, plenary: “Effective field theory and the Higgs”<span class="when">June 2018</span></li>
+          <li>PASCOS 2017, Madrid, plenary: “Finding our way to new physics”<span class="when">June 2017</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <div class="body">
+        <p class="contact-line"><a href="mailto:veronica.sanz@uv.es">veronica.sanz@uv.es</a></p>
+        <p>Instituto de Física Corpuscular (IFIC, UV–CSIC), Parc Científic de la Universitat de València, Paterna (València), Spain.</p>
+        <p>I welcome enquiries from prospective PhD students and postdocs interested in particle physics, machine learning for physical systems, or interdisciplinary AI. For industry collaborations, please write to <a href="https://inferalabs.es">INFERA Labs</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Verónica Sanz</span>
+    <span>Universitat de València and IFIC (UV–CSIC)</span>
+  </div>
+</footer>
+
+<script>
+/* Publication filter */
+(function(){
+  const buttons = document.querySelectorAll('.filters button');
+  const items = document.querySelectorAll('ol.pubs li');
+  buttons.forEach(b => b.addEventListener('click', () => {
+    const f = b.dataset.f;
+    buttons.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    items.forEach(li => { li.hidden = !(f === 'all' || li.dataset.t.split(' ').includes(f)); });
+  }));
+})();
+
+/* Kuramoto oscillators */
+(function(){
+  const canvas = document.getElementById('osc');
+  const ctx = canvas.getContext('2d');
+  const slider = document.getElementById('k');
+  const out = document.getElementById('r');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const N = 48, w0 = 0.7;
+  let seed = 7;
+  const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const gauss = () => Math.sqrt(-2 * Math.log(rand())) * Math.cos(2 * Math.PI * rand());
+  const omega = Array.from({length:N}, () => w0 + 0.55 * gauss());
+  const theta = Array.from({length:N}, () => 2 * Math.PI * rand());
+  let K = parseFloat(slider.value), touched = false, t0 = null, R = 0, psi = 0;
+
+  function css(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function size(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = canvas.clientWidth;
+    canvas.width = w * dpr; canvas.height = w * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function order(){
+    let c = 0, s = 0;
+    for (let i = 0; i < N; i++){ c += Math.cos(theta[i]); s += Math.sin(theta[i]); }
+    R = Math.hypot(c, s) / N; psi = Math.atan2(s, c);
+  }
+  function step(dt){
+    order();
+    for (let i = 0; i < N; i++) theta[i] += dt * (omega[i] + K * R * Math.sin(psi - theta[i]));
+  }
+  function draw(){
+    const w = canvas.clientWidth, c = w / 2, rad = w * 0.38;
+    const ink = css('--ink'), rule = css('--rule'), sig = css('--signal'), soft = css('--signal-soft');
+    ctx.clearRect(0, 0, w, w);
+    ctx.strokeStyle = rule; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(c, c, rad, 0, 2 * Math.PI); ctx.stroke();
+    ctx.beginPath(); ctx.arc(c, c, 2, 0, 2 * Math.PI); ctx.fillStyle = ink; ctx.fill();
+    for (let i = 0; i < N; i++){
+      const x = c + rad * Math.cos(theta[i]), y = c + rad * Math.sin(theta[i]);
+      ctx.beginPath(); ctx.arc(x, y, w * 0.026, 0, 2 * Math.PI); ctx.fillStyle = soft; ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y, w * 0.011, 0, 2 * Math.PI); ctx.fillStyle = sig; ctx.fill();
+    }
+    const ax = c + rad * R * Math.cos(psi), ay = c + rad * R * Math.sin(psi);
+    ctx.strokeStyle = ink; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(c, c); ctx.lineTo(ax, ay); ctx.stroke();
+    if (R > 0.08){
+      const a = Math.atan2(ay - c, ax - c), h = 9;
+      ctx.beginPath(); ctx.moveTo(ax, ay);
+      ctx.lineTo(ax - h * Math.cos(a - 0.45), ay - h * Math.sin(a - 0.45));
+      ctx.lineTo(ax - h * Math.cos(a + 0.45), ay - h * Math.sin(a + 0.45));
+      ctx.closePath(); ctx.fillStyle = ink; ctx.fill();
+    }
+    out.textContent = 'r = ' + R.toFixed(2);
+  }
+  slider.addEventListener('input', () => {
+    touched = true; K = parseFloat(slider.value);
+    if (reduce){ for (let i = 0; i < 1500; i++) step(0.02); order(); draw(); }
+  });
+  window.addEventListener('resize', () => { size(); draw(); });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+  size();
+
+  if (reduce){
+    K = 2.4; slider.value = K;
+    for (let i = 0; i < 1500; i++) step(0.02);
+    order(); draw(); return;
+  }
+  let last = null;
+  function frame(ts){
+    if (t0 === null) t0 = ts;
+    if (!touched){
+      const p = Math.min(1, Math.max(0, (ts - t0 - 1500) / 7000));
+      K = 0.3 + (2.4 - 0.3) * (p * p * (3 - 2 * p));
+      slider.value = K.toFixed(2);
+    }
+    const dt = last === null ? 0.016 : Math.min(0.05, (ts - last) / 1000);
+    last = ts;
+    for (let s = 0; s < 3; s++) step(dt / 3);
+    order(); draw();
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
